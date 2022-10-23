@@ -2,12 +2,10 @@ package splitbot
 
 import (
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 	"unicode/utf8"
 
-	"github.com/almiskov/text-split-bot/internal"
 	"github.com/almiskov/text-split-bot/splitter"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -51,9 +49,7 @@ func (b *splitbot) handleProcessKbText(msg *tgbotapi.Message) {
 		return
 	}
 
-	leadingPageAddition := string(internal.Must(os.ReadFile("assets/leading_page_addition2.txt")))
-
-	spl := splitter.New(splitter.WithLeadingPageAddition(leadingPageAddition))
+	spl := splitter.New()
 	pages := spl.Split(replyText)
 
 	sendBorder := func(d BorderDirection) {
